@@ -1,0 +1,40 @@
+﻿Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+Executed DbCommand (38ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [b].[Id], [b].[AuthorId], [b].[AuthorName], [b].[CategoryId], [b].[IsAvailable], [b].[ReaderId], [b].[ReturnDate], [b].[Title], [b].[YearOfIssue]
+FROM [Books] AS [b]
+Executed DbCommand (41ms) [Parameters=[@__p_0='1'], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__p_0
+Executed DbCommand (1ms) [Parameters=[@__p_0='6'], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__p_0
+Executed DbCommand (0ms) [Parameters=[@__p_0='3'], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__p_0
+Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+Executed DbCommand (42ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [r].[Id], [r].[DateOfBirth], [r].[FirstName], [r].[LastName]
+FROM [Readers] AS [r]
+Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+Executed DbCommand (27ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [b].[Id], [b].[AuthorId], [b].[AuthorName], [b].[CategoryId], [b].[IsAvailable], [b].[ReaderId], [b].[ReturnDate], [b].[Title], [b].[YearOfIssue]
+FROM [Books] AS [b]
+Executed DbCommand (26ms) [Parameters=[@__p_0='1'], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__p_0
+Executed DbCommand (1ms) [Parameters=[@__p_0='6'], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__p_0
+Executed DbCommand (1ms) [Parameters=[@__p_0='3'], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__p_0
+Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data; this mode should only be enabled during development.
+Executed DbCommand (47ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [r].[Id], [r].[DateOfBirth], [r].[FirstName], [r].[LastName]
+FROM [Readers] AS [r]

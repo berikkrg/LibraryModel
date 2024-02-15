@@ -11,10 +11,16 @@ using System.Threading.Tasks;
 
 namespace LibraryModel.Services.Menu
 {
+    /// <summary>
+    /// The ListOfBooksMenuService class extends the BaseMenuService and provides a menu for listing books.
+    /// </summary>
     public class ListOfBooksMenuService : BaseMenuService
     {
         private BooksService _booksService;
         private List<BookResponseDTO> _books = new List<BookResponseDTO>();
+        /// <summary>
+        /// The constructor sets up the menu text, the number of menu items, and then initializes console app view items
+        /// </summary>
         public ListOfBooksMenuService()
         {
             _booksService = new BooksService();
@@ -35,7 +41,9 @@ namespace LibraryModel.Services.Menu
             CheckMenuInput();
             Navigate();
         }
-
+        /// <summary>
+        /// The ShowListOfBooks method send request to service, retrieves responseDTO and displays a list of books on console.
+        /// </summary>
         private async Task ShowListOfBooks()
         {
             Console.WriteLine("\tId\t|Name\t\t\t|Year\t|Author\t\t\t|Is Available\t|Return Date");
@@ -47,14 +55,14 @@ namespace LibraryModel.Services.Menu
             {
                 string availability = book.IsAvailable ? "Yes" : "No";
                 string returnDate = "";
-                if (book.ReturnDate!=null)
+                if (book.ReturnDate != null)
                 {
                     returnDate = book.ReturnDate.GetValueOrDefault().ToShortDateString();
                 }
                 else
                 {
                     returnDate = "--";
-                }    
+                }
                 Console.WriteLine($"\t{book.Id}\t|{book.Title.PadRight(20)}\t|{book.YearOfIssue}\t|{book.AuthorName.PadRight(20)}\t|{availability.PadRight(20)}\t|{returnDate}");
             }
 
@@ -63,6 +71,10 @@ namespace LibraryModel.Services.Menu
 
         }
 
+        /// <summary>
+        /// The Navigate method overrides the base Navigate method and provides navigation based on the user's choice.
+        /// Depending on the user's choice, it may add, delete, or update a book, or sort the list of books.
+        /// </summary>
         protected override async void Navigate()
         {
             if (Choice == 1)
@@ -72,12 +84,8 @@ namespace LibraryModel.Services.Menu
                 _books = await _booksService.AddBooks(request);
                 if (_books != null)
                 {
-                    Console.Clear();
-                    await ShowListOfBooks();
-                    Console.WriteLine("Книга успешно добавлена");
-                    DrawMenu();
-                    CheckMenuInput();
-                    Navigate();
+                    string messageText = "Книга успешно добавлена";
+                    await Refresh(messageText);
                 }
 
             }
@@ -86,61 +94,47 @@ namespace LibraryModel.Services.Menu
                 Console.WriteLine("\nВведите Id книги");
                 //TODO: validate input
                 int id = int.Parse(Console.ReadLine());
-               _books = await _booksService.DeleteBook(id);
+                _books = await _booksService.DeleteBook(id);
                 if (_books != null)
                 {
-                    Console.Clear();
-                    await ShowListOfBooks();
-                    Console.WriteLine("Книга успешно удалена");
-                    DrawMenu();
-                    CheckMenuInput();
-                    Navigate();
+
+                    string messageText = "Книга успешно удалена";
+                    await Refresh(messageText);
                 }
             }
-            else if (Choice==3)
+            else if (Choice == 3)
             {
                 UpdateBookDTO update = new UpdateBookDTO();
                 CheckUpdateBookInputs(update);
                 _books = await _booksService.UpdateBook(update);
                 if (_books != null)
                 {
-                    Console.Clear();
-                    await ShowListOfBooks();
-                    Console.WriteLine("Книга вручена пользователю.");
-                    DrawMenu();
-                    CheckMenuInput();
-                    Navigate();
+
+                    string messageText = "Книга вручена пользователю.";
+                    await Refresh(messageText);
                 }
             }
             else if (Choice == 4)
             {
-                if (_books!=null)
+                if (_books != null)
                 {
                     _books.OrderBy(x => x.Title);
-                    Console.Clear();
-                    var myTask = ShowListOfBooks();
-                    myTask.Wait();
-                    Console.WriteLine("Список отсортирован по названию");
-                    DrawMenu();
-                    CheckMenuInput();
-                    Navigate();
+
+                    string messageText = "Список отсортирован по названию";
+                    await Refresh(messageText);
                 }
             }
-            else if (Choice==5)
+            else if (Choice == 5)
             {
                 if (_books != null)
                 {
                     _books.OrderBy(x => x.YearOfIssue);
-                    Console.Clear();
-                    var myTask = ShowListOfBooks();
-                    myTask.Wait();
-                    Console.WriteLine("Список отсортирован по году выпуска");
-                    DrawMenu();
-                    CheckMenuInput();
-                    Navigate();
+
+                    string messageText = "Список отсортирован по году выпуска";
+                    await Refresh(messageText);
                 }
             }
-            else if (Choice==6)
+            else if (Choice == 6)
             {
                 Console.Clear();
                 MainMenuService mainMenuService = new MainMenuService();
@@ -169,17 +163,21 @@ namespace LibraryModel.Services.Menu
 
         }
 
+        /// <summary>
+        /// The CheckUpdateBookInputs method updates the request object with the chosen book's details.
+        /// </summary>
+        /// <param name="request">The request object to be updated.</param>
         private void CheckUpdateBookInputs(UpdateBookDTO request)
         {
             request.Id = ChooseBookToGive();
             BookResponseDTO choosenBook = _books.FirstOrDefault(x => x.Id == request.Id);
-            if(!choosenBook.IsAvailable)
+            if (!choosenBook.IsAvailable)
             {
                 do
                 {
                     Console.WriteLine("Выбранная книга уже выдана");
-                    
-                    request.Id=ChooseBookToGive();
+
+                    request.Id = ChooseBookToGive();
                     choosenBook = _books.FirstOrDefault(x => x.Id == request.Id);
                 }
                 while (!choosenBook.IsAvailable);
@@ -190,16 +188,35 @@ namespace LibraryModel.Services.Menu
             request.IsAvailable = false;
             request.YearOfIssue = choosenBook.YearOfIssue;
             request.AuthorName = choosenBook.AuthorName;
-            request.CategoryId = choosenBook.CategoryId;    
+            request.CategoryId = choosenBook.CategoryId;
             request.Title = choosenBook.Title;
 
         }
-
+        /// <summary>
+        /// The ChooseBookToGive method asks the user to choose a book and returns the chosen book's ID.
+        /// </summary>
+        /// <returns>The ID of the chosen book.</returns>
         private int ChooseBookToGive()
         {
             Console.WriteLine("Выберите книгу");
             int choice = int.Parse(Console.ReadLine());
             return choice;
+        }
+
+        /// <summary>
+        /// The Refresh method clears the console, shows the list of books, displays a message, draws the menu, checks for user input, and navigates based on the input.
+        /// </summary>
+        /// <param name = "messageText">The message to be displayed.</param>
+        /// <returns>A Task that represents the asynchronous operation.</returns>
+        private async Task Refresh(string messageText)
+        {
+            Console.Clear();
+            var myTask = ShowListOfBooks();
+            myTask.Wait();
+            Console.WriteLine(messageText);
+            DrawMenu();
+            CheckMenuInput();
+            Navigate();
         }
 
     }

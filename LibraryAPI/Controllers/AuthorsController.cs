@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryAPI.Controllers
 {
+    /// <summary>
+    /// a dummy controller to further versions of project
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class AuthorsController : ControllerBase

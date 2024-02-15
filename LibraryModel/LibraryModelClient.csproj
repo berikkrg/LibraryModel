@@ -8,9 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
     <Folder Include="Services\Readers\" />
-    <Folder Include="Source\Repositories\" />
   </ItemGroup>
 
   <ItemGroup>

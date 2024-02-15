@@ -6,15 +6,26 @@ using NuGet.DependencyResolver;
 
 namespace LibraryAPI.Repositories
 {
+    /// <summary>
+    /// The BooksRepository class provides methods for interacting with the books entity in the database.
+    /// </summary>
     public class BooksRepository
     {
         private readonly LibraryDbContext _context;
 
+        /// <summary>
+        /// The constructor for the BooksRepository class.
+        /// </summary>
+        /// <param name="context">The DbContext that represents the database.</param>
         public BooksRepository(LibraryDbContext context)
         {
             _context = context;
         }
 
+        // <summary>
+        /// The GetBooksAsync method retrieves all books from the database.
+        /// </summary>
+        /// <returns>a list of all books.</returns>
         public async Task<List<Book>> GetBooksAsync()
         {
             try
@@ -34,6 +45,11 @@ namespace LibraryAPI.Repositories
             }
         }
 
+        /// <summary>
+        /// The GetBooksByAuthor method retrieves books by a specific author from the database.
+        /// </summary>
+        /// <param name="authorName">The name of the author to find his books in database.</param>
+        /// <returns>result contains a list of books by the specified author.</returns>
         public async Task<List<Book>>GetBooksByAuthor(string authorName)
         {
             try
@@ -46,6 +62,11 @@ namespace LibraryAPI.Repositories
             }
         }
 
+        /// <summary>
+        /// The GetBooksByReader method retrieves books loaned by a specific reader from the database.
+        /// </summary>
+        /// <param name="readerId">The ID of the reader.</param>
+        /// <returns>the result contains a list of books owned by the exact reader.</returns>
         public async Task<List<Book>> GetBooksByReader(int readerId)
         {
             try
@@ -57,7 +78,11 @@ namespace LibraryAPI.Repositories
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// The GetBooksByCategory method retrieves books that has a specified category from the database.
+        /// </summary>
+        /// <param name="categoryId">The ID of the category.</param>
+        /// <returns>the result contains a list of books with specific category.</returns>
         public async Task<List<Book>> GetBooksByCategory(int categoryId)
         {
             try
@@ -69,7 +94,11 @@ namespace LibraryAPI.Repositories
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// The GetBookById method retrieves exact book by id
+        /// </summary>
+        /// <param name="bookId">The ID of the book to retrieve.</param>
+        /// <returns>the books with a specific id.</returns>
         public async Task<Book> GetBookById(int bookId)
         {
             try
@@ -81,7 +110,12 @@ namespace LibraryAPI.Repositories
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// The UpdateBook method updates a book's details in the database.
+        /// </summary>
+        /// <param name="bookId">The ID of the book to be updated.</param>
+        /// <param name="book">The book object containing the new details of the book.</param>
+        /// <returns>a list of all books after updating the book.</returns>
         public async Task<List<Book>>UpdateBook(int bookId, Book book)
         {
             try
@@ -128,7 +162,11 @@ namespace LibraryAPI.Repositories
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// The DeleteBook method deletes a book from the database.
+        /// </summary>
+        /// <param name="bookId">The ID of the book to be deleted.</param>
+        /// <returns>a list of all books after deleting the book.</returns>
         public async Task<List<Book>> DeleteBook(int bookId)
         {
             try
@@ -144,7 +182,11 @@ namespace LibraryAPI.Repositories
                 throw new Exception(ex.Message);
             }
         }
-
+        /// <summary>
+        /// The AddBookAsync method adds a new book to the database.
+        /// </summary>
+        /// <param name="book">The book object to be added.</param>
+        /// <returns> a list of all books after adding the new book.</returns>
         public async Task<List<Book>>AddBookAsync(Book book)
         {
             try

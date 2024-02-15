@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace LibraryModel.Services.Menu
 {
+    /// <summary>
+    /// The MainMenuService class extends the BaseMenuService and provides the main menu for the application.
+    /// </summary>
     public class MainMenuService : BaseMenuService
     {
         public MainMenuService()
@@ -15,15 +18,16 @@ namespace LibraryModel.Services.Menu
                   "\tДобро пожаловать в библиотеку\n" +
                   "__________________________________________\n" +
                   "\tВыберите операцию:\n" +
-                  "\t1. Вывести список книг\n" +
-                  "\t2. Выдача/возврат книги(Inactive.Coming in version 2.0)\n" +
-                  "\t3. Добавить/Удалить читателя(Inactive. Coming in verson 2.0)\n";
+                  "\t1. Вывести список книг\n";
             AmountOfMenuItems = 1;
             DrawMenu();
             CheckMenuInput();
             //Navigate();
         }
 
+        /// <summary>
+        /// The Navigate method overrides the base Navigate method and provides navigation based on the user's choice.
+        /// </summary>
         protected override void Navigate()
         {
             Console.Clear();
@@ -31,10 +35,10 @@ namespace LibraryModel.Services.Menu
             {
                 ListOfBooksMenuService listOfBooksMenuService = new ListOfBooksMenuService();
             }
-            else if (Choice == 2)
-            {
-                UpdateLibraryMenuService updateService = new UpdateLibraryMenuService();
-            }
+            //else if (Choice == 2)
+            //{
+            //    UpdateLibraryMenuService updateService = new UpdateLibraryMenuService();
+            //}
             base.Navigate();
         }
 

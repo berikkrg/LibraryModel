@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LibraryData.Configurations
 {
+    /// <summary>
+    /// Configuration of Category entity for dbContext. Implements IEntityTypeConfiguration
+    /// </summary>
     public class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)

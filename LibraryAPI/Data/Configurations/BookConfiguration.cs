@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace LibraryData.Configurations
 {
+    /// <summary>
+    /// Configuration of Book entity for dbContext. Implements IEntityTypeConfiguration
+    /// </summary>
     public class BookConfiguration : IEntityTypeConfiguration<Book>
     {
         public void Configure(EntityTypeBuilder<Book> builder)

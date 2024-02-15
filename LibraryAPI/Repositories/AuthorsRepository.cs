@@ -7,6 +7,9 @@ namespace LibraryAPI.Repositories
 {
     public class AuthorsRepository
     {
+        /// <summary>
+        /// Dummy repository for further versions of projects
+        /// </summary>
         private readonly LibraryDbContext _context;
         public AuthorsRepository(LibraryDbContext context)
         {
